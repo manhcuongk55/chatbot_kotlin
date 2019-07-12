@@ -4,21 +4,24 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.MediaPlayer
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.view.View
 import kotlinx.android.synthetic.main.activity_custom_demo.*
+import java.lang.Exception
 
 class MainActivity : AppCompatActivity(), RecognitionUICallback {
+
+
     private val MIC_REQ_CODE = 1001
     private lateinit var voiceClient: VoiceClient
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_custom_demo)
-
+//        mediaPlayer = MediaPlayer.create(this, )
         demo_btn_mic.setOnClickListener {
             if (checkMicPermission()) {
                 voiceClient.startStreaming()
@@ -78,6 +81,17 @@ class MainActivity : AppCompatActivity(), RecognitionUICallback {
 
     override fun onUpdateText(text: String) {
         demo_txt_preview.text = text
+    }
+    override fun onUpdateAudio(url: String) {
+        val mp = MediaPlayer()
+        try {
+            mp.setDataSource(url)
+            mp.prepare()
+            mp.start()
+        }catch (e: Exception){
+            e.stackTrace
+        }
+
     }
 
     override fun onFailed(msg: String) {

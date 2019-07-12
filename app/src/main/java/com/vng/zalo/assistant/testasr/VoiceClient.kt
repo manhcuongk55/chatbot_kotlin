@@ -19,10 +19,10 @@ import io.grpc.ManagedChannelBuilder
 import io.grpc.Metadata
 import io.grpc.stub.MetadataUtils
 import io.grpc.stub.StreamObserver
-import voicebot.VoiceBotConfig
-import voicebot.VoiceBotGrpc
-import voicebot.VoiceBotRequest
-import voicebot.VoiceBotResponse
+import service.VoiceBotConfig
+import service.VoiceBotGrpc
+import service.VoiceBotRequest
+import service.VoiceBotResponse
 import javax.net.ssl.SSLException
 
 class VoiceClient(private val channel: ManagedChannel) {
@@ -62,6 +62,9 @@ class VoiceClient(private val channel: ManagedChannel) {
                 FINISH_CODE -> {
                     if (msgIfAny == "") return
                     recognitionUICallback.onFinal(msgIfAny)
+                }
+                UPDATE_CODE_AUDIO -> {
+                    recognitionUICallback.onUpdateAudio(msgIfAny)
                 }
             }
         }
@@ -173,8 +176,11 @@ class VoiceClient(private val channel: ManagedChannel) {
                         // Text trả lời của bot
                         val textBot = voiceBotResponse.text
                         // Audio trả lời của bot
-                        val audioBot = voiceBotResponse.audioContent
+                        val unlAudio = voiceBotResponse.audioUrl
                         handler.sendMessage(Message.obtain(handler, FINISH_CODE, textAsr))
+                        if (unlAudio != null) {
+                            handler.sendMessage(Message.obtain(handler, UPDATE_CODE_AUDIO, unlAudio))
+                        }
                     }
                 }
 
@@ -298,6 +304,7 @@ class VoiceClient(private val channel: ManagedChannel) {
         private val STOP_CODE = 10002
         private val ERR_CODE = 10003
         private val UPDATE_CODE = 10004
+        private val UPDATE_CODE_AUDIO = 10006
         private val CLIENT_TIME_OUT: Long = 5000
         private val FINISH_CODE = 10005
         private val SAMPLE_RATE = 16000
