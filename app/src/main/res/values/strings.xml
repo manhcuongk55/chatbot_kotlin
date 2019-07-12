@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ASRTTSDebugger</string>
+    <string name="string_preview_hint">Nói gì đó…</string>
+</resources>

@@ -1,0 +1,45 @@
+syntax = "proto3";
+option java_multiple_files = true;
+option java_package = "voicebot";
+option java_outer_classname = "VoiceBotService";
+
+package voicebot;
+
+service VoiceBot {
+    rpc ListCallCenter(ListCallCenterRequest) returns (ListCallCenterResponse);
+    rpc CallToBot (stream VoiceBotRequest) returns (stream VoiceBotResponse);
+}
+
+message CallCenter {
+    string code = 1;
+    string name = 2;
+}
+
+message ListCallCenterRequest {}
+
+message ListCallCenterResponse {
+    repeated CallCenter call_centers = 1;
+}
+
+message VoiceBotConfig {
+    string call_center_code = 1;
+    bool is_male = 2;
+}
+
+message VoiceBotRequest {
+    VoiceBotConfig voicebot_config = 1;
+    bytes audio_content = 2;
+}
+
+message VoiceBotResponse {
+    Status status = 1;
+    string text = 2;
+    bytes audio_content = 3;
+    string text_asr = 4;
+    bool final = 5;
+}
+
+message Status {
+    int32 code = 1;
+    string message = 2;
+}
