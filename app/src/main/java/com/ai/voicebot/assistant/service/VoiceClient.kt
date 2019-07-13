@@ -6,7 +6,6 @@ import android.media.*
 import android.os.Build
 import android.os.Handler
 import android.os.Message
-import android.text.TextUtils
 import android.util.Log
 import com.ai.voicebot.assistant.ui.RecognitionUICallback
 import com.google.protobuf.ByteString
@@ -62,11 +61,11 @@ class VoiceClient(private var channel: ManagedChannel) {
                 UPDATE_CODE_AUDIO -> {
                     recognitionUICallback.onUpdateAudio(msgIfAny)
                 }
-                UPDATE_CODE_TEXT_BOT->{
+                UPDATE_CODE_TEXT_BOT -> {
                     recognitionUICallback.onUpdateTextResponse(msgIfAny)
                 }
-                UPDATE_CODE_END_CALL->{
-                    recognitionUICallback.onEndCall()
+                UPDATE_CODE_END_CALL -> {
+                    recognitionUICallback.onEndCall(msgIfAny)
                 }
             }
         }
@@ -86,7 +85,8 @@ class VoiceClient(private var channel: ManagedChannel) {
     internal var minBufSize = AudioRecord.getMinBufferSize(sampleRate, channelConfig, audioFormat)
     private var lastServerResponseTime: Long = 0
     private var lastResult: String? = null
-    var  callCenter = "18002222"
+    var callCenter = "18002222"
+
     @Throws(SSLException::class)
     constructor(context: Context, uiCallback: RecognitionUICallback) : this(
         ManagedChannelBuilder.forAddress(
@@ -116,9 +116,12 @@ class VoiceClient(private var channel: ManagedChannel) {
     fun stopStreaming() {
         if (recording) {
             recording = false
-            handler.sendMessage(Message.obtain(handler,
-                STOP_CODE
-            ))
+            handler.sendMessage(
+                Message.obtain(
+                    handler,
+                    STOP_CODE
+                )
+            )
         }
     }
 
@@ -172,22 +175,27 @@ class VoiceClient(private var channel: ManagedChannel) {
                 //Định nghĩa sẽ làm gì với TextReply asr_response trả về:
                 override fun onNext(voiceBotResponse: VoiceBotResponse) {
                     // Tin nhắn đầu tiên không chứa textAsr, server dùng để báo hiệu đã thông kết nối với client
-                    if(voiceBotResponse.status.code != 200){
-                        handler.sendMessage(Message.obtain(handler,
-                            UPDATE_CODE_END_CALL
-                        ))
+                    if (voiceBotResponse.status.code != 200) {
+                        handler.sendMessage(
+                            Message.obtain(
+                                handler,
+                                UPDATE_CODE_END_CALL, voiceBotResponse.status.message
+                            )
+                        )
                         return
                     }
                     connecting = true
                     if (speaking) return
                     var textAsr = voiceBotResponse.textAsr
                     if (textAsr == null) return
-                    if(textAsr.isBlank()) return
-                    if(textAsr.isEmpty())return
                     lastServerResponseTime = System.currentTimeMillis()
                     val resultFinal = voiceBotResponse.final
-                    handler.sendMessage(Message.obtain(handler,
-                        UPDATE_CODE, textAsr))
+                    handler.sendMessage(
+                        Message.obtain(
+                            handler,
+                            UPDATE_CODE, textAsr
+                        )
+                    )
 
                     // Only when single
                     if (resultFinal) {
@@ -195,15 +203,23 @@ class VoiceClient(private var channel: ManagedChannel) {
                         val textBot = voiceBotResponse.text
                         // Audio trả lời của bot
                         val urlAudio = voiceBotResponse.audioUrl
-                        handler.sendMessage(Message.obtain(handler,
-                            UPDATE_SENTENCE_CODE, textAsr))
-                        if(textBot != null && textBot.isNotBlank() && textBot.isNotEmpty()){
+                        handler.sendMessage(
+                            Message.obtain(
+                                handler,
+                                UPDATE_SENTENCE_CODE, textAsr
+                            )
+                        )
+                        if (textBot != null && textBot.isNotBlank() && textBot.isNotEmpty()) {
                             handler.sendMessage(Message.obtain(handler, UPDATE_CODE_TEXT_BOT, textBot))
                         }
 
-                        if (urlAudio != null && urlAudio.isNotBlank() && urlAudio.isNotEmpty() ) {
-                            handler.sendMessage(Message.obtain(handler,
-                                UPDATE_CODE_AUDIO, urlAudio))
+                        if (urlAudio != null && urlAudio.isNotBlank() && urlAudio.isNotEmpty()) {
+                            handler.sendMessage(
+                                Message.obtain(
+                                    handler,
+                                    UPDATE_CODE_AUDIO, urlAudio
+                                )
+                            )
                         }
                     }
                 }
@@ -212,11 +228,10 @@ class VoiceClient(private var channel: ManagedChannel) {
                 override fun onError(throwable: Throwable) {
                     // Already stopAsr
                     Log.d("quyendb", "orError")
-                    if (!recording) return
                     handler.sendMessage(
                         Message.obtain(
-                            handler, ERR_CODE,
-                            throwable.toString()
+                            handler,
+                            UPDATE_CODE_END_CALL
                         )
                     )
                     stopStreaming()
@@ -225,17 +240,23 @@ class VoiceClient(private var channel: ManagedChannel) {
                 //Định nghĩa những việc sẽ làm khi server kết thúc stream
                 override fun onCompleted() {
                     stopStreaming()
-                    handler.sendMessage(Message.obtain(handler,
-                        UPDATE_CODE_END_CALL
-                    ))
+                    handler.sendMessage(
+                        Message.obtain(
+                            handler,
+                            UPDATE_CODE_END_CALL
+                        )
+                    )
                 }
             }
 
             val request = asyncStub.callToBot(responseObserver)
 
-            handler.sendMessage(Message.obtain(handler,
-                START_CODE
-            ))
+            handler.sendMessage(
+                Message.obtain(
+                    handler,
+                    START_CODE
+                )
+            )
 
             recorder!!.startRecording()
             lastServerResponseTime = System.currentTimeMillis()
@@ -264,15 +285,18 @@ class VoiceClient(private var channel: ManagedChannel) {
                             "Record error"
                         )
                     )
-                    handler.sendMessageDelayed(Message.obtain(handler,
-                        STOP_CODE
-                    ), 300)
+                    handler.sendMessageDelayed(
+                        Message.obtain(
+                            handler,
+                            STOP_CODE
+                        ), 300
+                    )
                     recording = false
                 } else {
-                    if(speaking){
+                    if (speaking) {
                         recorder!!.read(audioBuffer, 0, audioBuffer.size)
                         //request.onNext(VoiceBotRequest.newBuilder().setAudioContent(ByteString.copyFrom(ByteArray(minBufSize))).build())
-                    }else{
+                    } else {
                         recorder!!.read(audioBuffer, 0, audioBuffer.size)
                         request.onNext(VoiceBotRequest.newBuilder().setAudioContent(ByteString.copyFrom(audioBuffer)).build())
                     }

@@ -1,7 +1,7 @@
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" xmlns:waveview="http://schemas.android.com/apk/res-auto"
+        xmlns:waveview="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent" android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="#cc000000">
 
@@ -28,12 +28,12 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:textColor="@android:color/white"
-        android:orientation="vertical"
-        android:padding="8dp">
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textColor="@android:color/white"
+            android:orientation="vertical"
+            android:padding="8dp">
         <ImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
@@ -60,7 +60,7 @@
                 android:layout_width="match_parent"
                 android:gravity="center"
                 android:textColor="#ffffff"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="40dp"
                 android:layout_height="wrap_content"/>
 
         <TextView
@@ -74,10 +74,10 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="10dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="10dp">
         <com.dnkilic.waveform.WaveView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -86,10 +86,10 @@
         </com.dnkilic.waveform.WaveView>
 
         <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_below="@id/waveview">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_below="@id/waveview">
             <ImageButton
                     android:id="@+id/demo_btn_mic"
                     android:layout_width="50dp"

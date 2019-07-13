@@ -8,5 +8,5 @@ interface RecognitionUICallback {
     fun onUpdateTextResponse(text: String)
     fun onFailed(msg: String)
     fun onFinal(finalText: String)
-    fun onEndCall()
+    fun onEndCall(mess: String)
 }
