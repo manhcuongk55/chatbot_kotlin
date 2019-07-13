@@ -48,7 +48,24 @@ class MainActivity : AppCompatActivity(), RecognitionUICallback {
         setContentView(R.layout.activity_dialog)
         tv_number.text = "" + KeyboardActivity.phoneNumber
         voiceClient = VoiceClient(this, this)
+        try {
+            mp = MediaPlayer.create(this,R.raw.beep1)
+            mp.setOnPreparedListener{
+                mp.start()
+            }
+            val timer = object : CountDownTimer(2000, 1000) {
+                override fun onTick(millisUntilFinished: Long) {
+                    tv_calling.text = "Calling ........."
+                }
 
+                override fun onFinish() {
+                    handler.sendMessage(Message.obtain(handler, 2))
+                }
+            }
+            timer.start()
+        }catch (e:Exception){
+           e.stackTrace
+        }
         when (KeyboardActivity.phoneNumber) {
             DUOC_CALL_IN -> {
                 voiceClient.callCenter = "" + DUOC_CALL_IN
@@ -64,16 +81,7 @@ class MainActivity : AppCompatActivity(), RecognitionUICallback {
             }
 
         }
-        val timer = object : CountDownTimer(3000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                tv_calling.text = "Calling ........."
-            }
 
-            override fun onFinish() {
-                handler.sendMessage(Message.obtain(handler, 2))
-            }
-        }
-        timer.start()
 
 
         demo_btn_stop.setOnClickListener {
