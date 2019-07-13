@@ -49,20 +49,45 @@ class MainActivity : AppCompatActivity(), RecognitionUICallback {
         tv_number.text = "" + KeyboardActivity.phoneNumber
         voiceClient = VoiceClient(this, this)
         try {
-            mp = MediaPlayer.create(this,R.raw.beep1)
-            mp.setOnPreparedListener{
-                mp.start()
-            }
-            val timer = object : CountDownTimer(2000, 1000) {
-                override fun onTick(millisUntilFinished: Long) {
-                    tv_calling.text = "Calling ........."
+            if(KeyboardActivity.isCallin){
+                demo_btn_mic.visibility = View.GONE
+                view_padding.visibility = View.GONE
+                mp = MediaPlayer.create(this,R.raw.beep1)
+                mp.setOnPreparedListener{
+                    mp.start()
                 }
+                val timer = object : CountDownTimer(2000, 1000) {
+                    override fun onTick(millisUntilFinished: Long) {
+                        tv_calling.text = "Calling ........."
+                    }
 
-                override fun onFinish() {
-                    handler.sendMessage(Message.obtain(handler, 2))
+                    override fun onFinish() {
+                        handler.sendMessage(Message.obtain(handler, 2))
+                    }
+                }
+                timer.start()
+            }else{
+                demo_btn_mic.visibility = View.VISIBLE
+                view_padding.visibility = View.VISIBLE
+                mp = MediaPlayer.create(this,R.raw.call_out)
+                mp.setOnPreparedListener {
+                    mp.start()
+                }
+                demo_btn_mic.setOnClickListener {
+                    demo_btn_stop.visibility = View.VISIBLE
+                    view_padding.visibility = View.GONE
+                    demo_btn_mic.visibility = View.GONE
+                    mp.release()
+                    voiceClient.startStreaming()
+                    timer.scheduleAtFixedRate(1000, 1000) {
+                        runOnUiThread {
+                            count++
+                            tv_calling.text = java.lang.String.format("%2d:%2d", count / 60, count % 60)
+                        }
+                    }
                 }
             }
-            timer.start()
+
         }catch (e:Exception){
            e.stackTrace
         }

@@ -2,7 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="oval">
-            <solid android:color="#e42828"/>
+            <solid android:color="#42f560"/>
             <stroke android:color="#3b91d7" android:width="5dp"/>
             <!-- Set the same value for both width and height to get a circular shape -->
             <size android:width="250dp" android:height="250dp"/>

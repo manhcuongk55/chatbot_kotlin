@@ -19,6 +19,7 @@ class CallOutService : FirebaseMessagingService() {
             KeyboardActivity.phoneNumber = remoteMessage.data.get("phoneNumber")?.toIntOrNull()!!
             if(KeyboardActivity.phoneNumber != null && KeyboardActivity.phoneNumber > 0){
                 val intent = Intent(this, MainActivity::class.java)
+                KeyboardActivity.isCallin = false
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent);
             }

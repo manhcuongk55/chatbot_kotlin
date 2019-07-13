@@ -51,6 +51,7 @@ class KeyboardActivity : AppCompatActivity(), NumberKeyboardListener {
     override fun onLeftAuxButtonClicked() {
         if(phoneNumber > 0){
             val intent = Intent(this, MainActivity::class.java)
+            KeyboardActivity.isCallin = true
             startActivity(intent);
         }else{
             Toast.makeText(this,"Bạn phải nhập số điện thoại", Toast.LENGTH_LONG).show()
@@ -73,5 +74,6 @@ class KeyboardActivity : AppCompatActivity(), NumberKeyboardListener {
     companion object {
         private const val MAX_ALLOWED_AMOUNT = 9999999999
         var  phoneNumber: Int = 0
+        var  isCallin : Boolean = true
     }
 }
