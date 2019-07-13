@@ -1,10 +1,10 @@
-package com.vng.zalo.assistant.service
+package com.ai.voicebot.assistant.service
 
 import android.util.Log
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
-class MyFirebaseMessagingService : FirebaseMessagingService() {
+class CallOutService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage?) {
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
@@ -21,13 +21,10 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         }
 
     }
-
     override fun onNewToken(token: String?) {
         Log.d(TAG, "Refreshed token: $token")
 
     }
-
-
     companion object {
         private const val TAG = "MyFirebaseMsgService"
     }

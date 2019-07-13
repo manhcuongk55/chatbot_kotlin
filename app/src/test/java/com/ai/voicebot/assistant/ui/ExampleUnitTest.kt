@@ -1,4 +1,4 @@
-package com.vng.zalo.assistant.testasr
+package com.ai.voicebot.assistant.ui
 
 import org.junit.Test
 

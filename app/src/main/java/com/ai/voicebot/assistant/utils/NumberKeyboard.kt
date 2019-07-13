@@ -2,19 +2,19 @@ package com.davidmiguel.numberkeyboard
 
 import android.content.Context
 import android.graphics.Typeface
-import android.support.annotation.AttrRes
-import android.support.annotation.ColorRes
-import android.support.annotation.Dimension
-import android.support.annotation.DrawableRes
-import android.support.constraint.ConstraintLayout
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatDelegate
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import com.vng.zalo.assistant.testasr.R
+import androidx.annotation.AttrRes
+import androidx.annotation.ColorRes
+import androidx.annotation.Dimension
+import androidx.annotation.DrawableRes
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import com.ai.voicebot.assistant.ui.R
 
 import java.util.*
 

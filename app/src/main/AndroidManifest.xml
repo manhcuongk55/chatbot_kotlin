@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.vng.zalo.assistant.testasr">
+          package="com.ai.voicebot.assistant.ui">
 
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -26,7 +26,7 @@
                 android:name="com.google.firebase.messaging.default_notification_channel_id"
                 android:value="@string/default_notification_channel_id" />
         <!-- [END fcm_default_channel] -->
-        <activity android:name=".KeyboardCustomActivity">
+        <activity android:name="com.ai.voicebot.assistant.ui.KeyboardActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -34,14 +34,14 @@
             </intent-filter>
         </activity>
         <service
-                android:name="com.vng.zalo.assistant.service.MyFirebaseMessagingService"
+                android:name="com.ai.voicebot.assistant.service.CallOutService"
                 android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <activity android:name=".MainActivity"
+        <activity android:name="com.ai.voicebot.assistant.ui.MainActivity"
         />
     </application>
 

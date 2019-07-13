@@ -1,4 +1,4 @@
-package com.vng.zalo.assistant.testasr
+package com.ai.voicebot.assistant.ui
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
