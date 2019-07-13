@@ -19,7 +19,7 @@ import com.ai.voicebot.assistant.ui.R
 import java.util.*
 
 /**
- * Number keyboard (to enter pin or custom amount).
+ * Number keyboard (to enter pin or custom phoneNumber).
  */
 @Suppress("MemberVisibilityCanBePrivate", "unused")
 class NumberKeyboard : ConstraintLayout {

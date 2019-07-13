@@ -21,7 +21,7 @@ import service.VoiceBotRequest
 import service.VoiceBotResponse
 import javax.net.ssl.SSLException
 
-class VoiceClient(private val channel: ManagedChannel) {
+class VoiceClient(private var channel: ManagedChannel) {
     private val asyncStub: VoiceBotGrpc.VoiceBotStub
 
     private lateinit var recognitionUICallback: RecognitionUICallback
@@ -74,7 +74,7 @@ class VoiceClient(private val channel: ManagedChannel) {
 
     private var timeOutConnecting = 5;
 
-    public var speaking = false
+    var speaking = false
     private var recording = false
     private var connecting = false
 
@@ -86,7 +86,7 @@ class VoiceClient(private val channel: ManagedChannel) {
     internal var minBufSize = AudioRecord.getMinBufferSize(sampleRate, channelConfig, audioFormat)
     private var lastServerResponseTime: Long = 0
     private var lastResult: String? = null
-
+    var  callCenter = "18002222"
     @Throws(SSLException::class)
     constructor(context: Context, uiCallback: RecognitionUICallback) : this(
         ManagedChannelBuilder.forAddress(
@@ -172,6 +172,12 @@ class VoiceClient(private val channel: ManagedChannel) {
                 //Định nghĩa sẽ làm gì với TextReply asr_response trả về:
                 override fun onNext(voiceBotResponse: VoiceBotResponse) {
                     // Tin nhắn đầu tiên không chứa textAsr, server dùng để báo hiệu đã thông kết nối với client
+                    if(voiceBotResponse.status.code != 200){
+                        handler.sendMessage(Message.obtain(handler,
+                            UPDATE_CODE_END_CALL
+                        ))
+                        return
+                    }
                     connecting = true
                     if (speaking) return
                     var textAsr = voiceBotResponse.textAsr
@@ -235,7 +241,6 @@ class VoiceClient(private val channel: ManagedChannel) {
             lastServerResponseTime = System.currentTimeMillis()
             recording = true
 
-            val callCenter = "cc1"
             Log.d("quyendb", "Try to call center cc1")
             request.onNext(
                 VoiceBotRequest.newBuilder().setVoicebotConfig(

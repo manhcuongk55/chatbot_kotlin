@@ -14,8 +14,6 @@ import androidx.core.content.ContextCompat
 import com.davidmiguel.numberkeyboard.NumberKeyboard
 import com.davidmiguel.numberkeyboard.NumberKeyboardListener
 
-import java.text.NumberFormat
-
 class KeyboardActivity : AppCompatActivity(), NumberKeyboardListener {
     private val MIC_REQ_CODE = 1001
     private lateinit var amountEditText: TextView
@@ -43,15 +41,15 @@ class KeyboardActivity : AppCompatActivity(), NumberKeyboardListener {
     }
 
     override fun onNumberClicked(number: Int) {
-        val newAmount = (amount * 10.0 + number).toInt()
+        val newAmount = (phoneNumber * 10.0 + number).toInt()
         if (newAmount <= MAX_ALLOWED_AMOUNT) {
-            amount = newAmount
+            phoneNumber = newAmount
             showAmount()
         }
     }
 
     override fun onLeftAuxButtonClicked() {
-        if(amount > 0){
+        if(phoneNumber > 0){
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent);
         }else{
@@ -61,19 +59,19 @@ class KeyboardActivity : AppCompatActivity(), NumberKeyboardListener {
 
     override fun onResume() {
         super.onResume()
-        //amount = 0
+        //phoneNumber = 0
     }
     override fun onRightAuxButtonClicked() {
-        amount = (amount / 10.0).toInt()
+        phoneNumber = (phoneNumber / 10.0).toInt()
         showAmount()
     }
 
     private fun showAmount() {
-        amountEditText.text = "" + amount.toLong()
+        amountEditText.text = "" + phoneNumber.toLong()
     }
 
     companion object {
         private const val MAX_ALLOWED_AMOUNT = 9999999999
-        var  amount: Int = 0
+        var  phoneNumber: Int = 0
     }
 }

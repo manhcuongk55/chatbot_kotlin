@@ -3,7 +3,7 @@ package com.ai.voicebot.assistant.ui
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.os.Handler
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -11,8 +11,6 @@ import com.ai.voicebot.assistant.service.VoiceClient
 import kotlinx.android.synthetic.main.activity_dialog.*
 import java.util.*
 import kotlin.concurrent.scheduleAtFixedRate
-import android.util.DisplayMetrics
-
 
 
 class MainActivity : AppCompatActivity(), RecognitionUICallback {
@@ -23,8 +21,24 @@ class MainActivity : AppCompatActivity(), RecognitionUICallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dialog)
-        tv_number.text = "" + KeyboardActivity.amount
+        tv_number.text = "" + KeyboardActivity.phoneNumber
         voiceClient = VoiceClient(this, this)
+
+        when (KeyboardActivity.phoneNumber) {
+            DUOC_CALL_IN -> {
+                voiceClient.callCenter = "" + DUOC_CALL_IN
+            }
+            DUOC_CALL_OUT -> {
+                voiceClient.callCenter = "" + DUOC_CALL_OUT
+            }
+            PIZZA_CALL_IN -> {
+                voiceClient.callCenter = "" + PIZZA_CALL_IN
+            }
+            PIZZA_CALL_OUT -> {
+                voiceClient.callCenter = "" + PIZZA_CALL_OUT
+            }
+
+        }
         val timer = object : CountDownTimer(3000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 tv_calling.text = "Calling ........."
@@ -34,7 +48,7 @@ class MainActivity : AppCompatActivity(), RecognitionUICallback {
                 voiceClient.startStreaming()
                 timer.scheduleAtFixedRate(1000, 1000) {
                     count++
-                    tv_calling.text = java.lang.String.format("%2d:%2d",count / 60,count % 60)
+                    tv_calling.text = java.lang.String.format("%2d:%2d", count / 60, count % 60)
                 }
             }
         }
@@ -80,8 +94,8 @@ class MainActivity : AppCompatActivity(), RecognitionUICallback {
     }
 
     override fun onUpdateAudio(url: String) {
-        Log.d("onUpdateAudio", url);
-        Log.d("quyendb", "speaking true")
+        Log.d(TAG, url);
+        Log.d(TAG, "speaking true")
         waveview.speechStarted()
         voiceClient.speaking = true
         val mp = MediaPlayer()
@@ -90,13 +104,13 @@ class MainActivity : AppCompatActivity(), RecognitionUICallback {
             mp.prepare()
             mp.start()
             Thread {
-                while (mp.isPlaying()){
+                while (mp.isPlaying()) {
                     Thread.sleep(10)
                 }
                 voiceClient.speaking = false
                 tv_asr.text = "Client: "
             }.start()
-            Log.d("quyendb", "speaking false")
+            Log.d(TAG, "speaking false")
             waveview.speechPaused()
         } catch (e: Exception) {
             e.stackTrace
@@ -106,14 +120,23 @@ class MainActivity : AppCompatActivity(), RecognitionUICallback {
     override fun onFailed(msg: String) {
         tv_response.visibility = View.VISIBLE
         tv_calling.visibility = View.INVISIBLE
-       // tv_response.text = "Error: $msg"
+        // tv_response.text = "Error: $msg"
     }
 
     override fun onFinal(finalText: String) {
         tv_response.visibility = View.VISIBLE
         tv_response.text = finalText
     }
+
     override fun onEndCall() {
         finish()
+    }
+
+    companion object {
+        private val TAG = MainActivity::class.java.simpleName
+        private val DUOC_CALL_IN = 18001111
+        private val DUOC_CALL_OUT = 18002222
+        private val PIZZA_CALL_IN = 18003333
+        private val PIZZA_CALL_OUT = 18004444
     }
 }
