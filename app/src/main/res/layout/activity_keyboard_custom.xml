@@ -17,7 +17,7 @@
         android:gravity="center"
         android:textSize="40sp" />
 
-    <com.davidmiguel.numberkeyboard.NumberKeyboard
+    <com.ai.voicebot.assistant.utils.NumberKeyboard
         android:id="@+id/numberKeyboard"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

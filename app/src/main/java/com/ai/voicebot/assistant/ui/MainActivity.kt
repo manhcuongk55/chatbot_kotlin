@@ -87,7 +87,19 @@ class MainActivity : AppCompatActivity(), RecognitionUICallback {
                     }
                 }
             }
-
+            demo_btn_stop.setOnClickListener {
+                try {
+                    if(KeyboardActivity.isCallin){
+                        voiceClient.stopStreaming()
+                        finish()
+                    } else {
+                        mp!!.release()
+                        finish()
+                    }
+                }catch (e: Exception){
+                    e.stackTrace
+                }
+            }
         }catch (e:Exception){
            e.stackTrace
         }
@@ -107,12 +119,6 @@ class MainActivity : AppCompatActivity(), RecognitionUICallback {
 
         }
 
-
-
-        demo_btn_stop.setOnClickListener {
-            voiceClient.stopStreaming()
-            finish()
-        }
 
     }
 

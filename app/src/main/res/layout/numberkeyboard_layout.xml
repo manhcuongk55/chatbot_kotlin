@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.davidmiguel.numberkeyboard.SquareFrameLayout
+    <com.ai.voicebot.assistant.utils.SquareFrameLayout
         android:id="@+id/key1Container"
         style="@style/numberkeyboard_keyContainer"
         app:layout_constraintBottom_toTopOf="@+id/key4Container"
@@ -18,9 +18,9 @@
             style="@style/numberkeyboard_key"
             android:text="@string/numberkeyboard_one" />
 
-    </com.davidmiguel.numberkeyboard.SquareFrameLayout>
+    </com.ai.voicebot.assistant.utils.SquareFrameLayout>
 
-    <com.davidmiguel.numberkeyboard.SquareFrameLayout
+    <com.ai.voicebot.assistant.utils.SquareFrameLayout
         android:id="@+id/key2Container"
         style="@style/numberkeyboard_keyContainer"
         app:layout_constraintBottom_toTopOf="@+id/key5Container"
@@ -33,9 +33,9 @@
             style="@style/numberkeyboard_key"
             android:text="@string/numberkeyboard_two" />
 
-    </com.davidmiguel.numberkeyboard.SquareFrameLayout>
+    </com.ai.voicebot.assistant.utils.SquareFrameLayout>
 
-    <com.davidmiguel.numberkeyboard.SquareFrameLayout
+    <com.ai.voicebot.assistant.utils.SquareFrameLayout
         android:id="@+id/key3Container"
         style="@style/numberkeyboard_keyContainer"
         app:layout_constraintBottom_toTopOf="@+id/key6Container"
@@ -48,9 +48,9 @@
             style="@style/numberkeyboard_key"
             android:text="@string/numberkeyboard_three" />
 
-    </com.davidmiguel.numberkeyboard.SquareFrameLayout>
+    </com.ai.voicebot.assistant.utils.SquareFrameLayout>
 
-    <com.davidmiguel.numberkeyboard.SquareFrameLayout
+    <com.ai.voicebot.assistant.utils.SquareFrameLayout
         android:id="@+id/key4Container"
         style="@style/numberkeyboard_keyContainer"
         app:layout_constraintBottom_toTopOf="@+id/key7Container"
@@ -63,10 +63,10 @@
             style="@style/numberkeyboard_key"
             android:text="@string/numberkeyboard_four" />
 
-    </com.davidmiguel.numberkeyboard.SquareFrameLayout>
+    </com.ai.voicebot.assistant.utils.SquareFrameLayout>
 
 
-    <com.davidmiguel.numberkeyboard.SquareFrameLayout
+    <com.ai.voicebot.assistant.utils.SquareFrameLayout
         android:id="@+id/key5Container"
         style="@style/numberkeyboard_keyContainer"
         app:layout_constraintBottom_toTopOf="@+id/key8Container"
@@ -79,9 +79,9 @@
             style="@style/numberkeyboard_key"
             android:text="@string/numberkeyboard_five" />
 
-    </com.davidmiguel.numberkeyboard.SquareFrameLayout>
+    </com.ai.voicebot.assistant.utils.SquareFrameLayout>
 
-    <com.davidmiguel.numberkeyboard.SquareFrameLayout
+    <com.ai.voicebot.assistant.utils.SquareFrameLayout
         android:id="@+id/key6Container"
         style="@style/numberkeyboard_keyContainer"
         app:layout_constraintBottom_toTopOf="@+id/key9Container"
@@ -94,9 +94,9 @@
             style="@style/numberkeyboard_key"
             android:text="@string/numberkeyboard_six" />
 
-    </com.davidmiguel.numberkeyboard.SquareFrameLayout>
+    </com.ai.voicebot.assistant.utils.SquareFrameLayout>
 
-    <com.davidmiguel.numberkeyboard.SquareFrameLayout
+    <com.ai.voicebot.assistant.utils.SquareFrameLayout
         android:id="@+id/key7Container"
         style="@style/numberkeyboard_keyContainer"
         app:layout_constraintBottom_toTopOf="@+id/leftAuxBtnContainer"
@@ -109,10 +109,10 @@
             style="@style/numberkeyboard_key"
             android:text="@string/numberkeyboard_seven" />
 
-    </com.davidmiguel.numberkeyboard.SquareFrameLayout>
+    </com.ai.voicebot.assistant.utils.SquareFrameLayout>
 
 
-    <com.davidmiguel.numberkeyboard.SquareFrameLayout
+    <com.ai.voicebot.assistant.utils.SquareFrameLayout
         android:id="@+id/key8Container"
         style="@style/numberkeyboard_keyContainer"
         app:layout_constraintBottom_toTopOf="@+id/key0Container"
@@ -125,9 +125,9 @@
             style="@style/numberkeyboard_key"
             android:text="@string/numberkeyboard_eight" />
 
-    </com.davidmiguel.numberkeyboard.SquareFrameLayout>
+    </com.ai.voicebot.assistant.utils.SquareFrameLayout>
 
-    <com.davidmiguel.numberkeyboard.SquareFrameLayout
+    <com.ai.voicebot.assistant.utils.SquareFrameLayout
         android:id="@+id/key9Container"
         style="@style/numberkeyboard_keyContainer"
         app:layout_constraintBottom_toTopOf="@+id/rightAuxBtnContainer"
@@ -140,9 +140,9 @@
             style="@style/numberkeyboard_key"
             android:text="@string/numberkeyboard_nine" />
 
-    </com.davidmiguel.numberkeyboard.SquareFrameLayout>
+    </com.ai.voicebot.assistant.utils.SquareFrameLayout>
 
-    <com.davidmiguel.numberkeyboard.SquareFrameLayout
+    <com.ai.voicebot.assistant.utils.SquareFrameLayout
         android:id="@+id/leftAuxBtnContainer"
         style="@style/numberkeyboard_keyContainer"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -156,10 +156,10 @@
             android:scaleType="center"
             app:srcCompat="@drawable/numberkeyboard_ic_fingerprint" />
 
-    </com.davidmiguel.numberkeyboard.SquareFrameLayout>
+    </com.ai.voicebot.assistant.utils.SquareFrameLayout>
 
 
-    <com.davidmiguel.numberkeyboard.SquareFrameLayout
+    <com.ai.voicebot.assistant.utils.SquareFrameLayout
         android:id="@+id/key0Container"
         style="@style/numberkeyboard_keyContainer"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -172,9 +172,9 @@
             style="@style/numberkeyboard_key"
             android:text="@string/numberkeyboard_zero" />
 
-    </com.davidmiguel.numberkeyboard.SquareFrameLayout>
+    </com.ai.voicebot.assistant.utils.SquareFrameLayout>
 
-    <com.davidmiguel.numberkeyboard.SquareFrameLayout
+    <com.ai.voicebot.assistant.utils.SquareFrameLayout
         android:id="@+id/rightAuxBtnContainer"
         style="@style/numberkeyboard_keyContainer"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -188,5 +188,5 @@
             android:scaleType="center"
             app:srcCompat="@drawable/numberkeyboard_ic_backspace" />
 
-    </com.davidmiguel.numberkeyboard.SquareFrameLayout>
+    </com.ai.voicebot.assistant.utils.SquareFrameLayout>
 </merge>
