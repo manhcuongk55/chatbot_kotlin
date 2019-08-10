@@ -103,7 +103,7 @@ class MainActivity : AppCompatActivity(), RecognitionUICallback {
         }catch (e:Exception){
            e.stackTrace
         }
-        when (KeyboardActivity.phoneNumber) {
+       /* when (KeyboardActivity.phoneNumber) {
             DUOC_CALL_IN -> {
                 voiceClient.callCenter = "" + DUOC_CALL_IN
             }
@@ -117,8 +117,8 @@ class MainActivity : AppCompatActivity(), RecognitionUICallback {
                 voiceClient.callCenter = "" + PIZZA_CALL_OUT
             }
 
-        }
-
+        }*/
+        voiceClient.callCenter = "" + KeyboardActivity.phoneNumber
 
     }
 
